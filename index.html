@@ -129,12 +129,41 @@
             transform: scale(1.05);
         }
 
+        .retry-btn {
+            background: #3498db;
+            color: white;
+        }
+
+        .retry-btn:hover {
+            background: #2980b9;
+            transform: scale(1.05);
+        }
+
+        .giveup-btn {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .giveup-btn:hover {
+            background: #7f8c8d;
+            transform: scale(1.05);
+        }
+
         .feedback {
             margin-top: 20px;
             font-size: 1.1rem;
             color: #e74c3c;
             min-height: 30px;
             font-weight: 500;
+        }
+
+        .failure {
+            display: none;
+        }
+
+        .failure.show {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
         }
 
         .celebration {
@@ -156,6 +185,11 @@
             margin: 20px 0;
         }
 
+        .sad-emoji {
+            font-size: 4rem;
+            margin: 20px 0;
+        }
+
         .shake {
             animation: shake 0.5s;
         }
@@ -164,6 +198,10 @@
             0%, 100% { transform: translateX(0); }
             25% { transform: translateX(-10px); }
             75% { transform: translateX(10px); }
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 </head>
@@ -185,6 +223,16 @@
             <div class="feedback" id="feedback"></div>
         </div>
 
+        <div class="failure" id="failure">
+            <div class="sad-emoji">😢</div>
+            <h2 style="color: #e74c3c; margin-bottom: 20px;">Sorry, you can't be my Valentine 💔</h2>
+            <p style="color: #7f8c8d; margin-bottom: 30px;">You didn't pass the test... but you can try again! 😊</p>
+            <div class="buttons">
+                <button class="retry-btn" id="retryBtn">Try Again 🔄</button>
+                <button class="giveup-btn" id="giveupBtn">Okay I Give Up 😔</button>
+            </div>
+        </div>
+
         <div class="celebration" id="celebration">
             <div class="heart">❤️💕💖💗💓💘</div>
             <h2>You're officially my Valentine! 🎉</h2>
@@ -200,6 +248,9 @@
         const feedback = document.getElementById('feedback');
         const questionContainer = document.getElementById('questionContainer');
         const celebration = document.getElementById('celebration');
+        const failure = document.getElementById('failure');
+        const retryBtn = document.getElementById('retryBtn');
+        const giveupBtn = document.getElementById('giveupBtn');
 
         const questions = [
             {
@@ -230,7 +281,7 @@
                 text: "Will you be my Valentine? 💝",
                 correctAnswer: "yes",
                 isCritical: true,
-                wrongFeedback: "NOOOO! Starting over! 😱",
+                wrongFeedback: "NOOOO! Progress reset to 0%! 😱",
                 correctFeedback: "YES! You did it! 🎊"
             }
         ];
@@ -240,7 +291,7 @@
 
         function showQuestion() {
             if (currentQuestion >= questions.length) {
-                showCelebration();
+                checkCompletion();
                 return;
             }
 
@@ -263,6 +314,14 @@
             progressBar.textContent = progress + '%';
         }
 
+        function checkCompletion() {
+            if (progress === 100) {
+                showCelebration();
+            } else {
+                showFailure();
+            }
+        }
+
         function handleAnswer(answer) {
             const current = questions[currentQuestion];
             const isCorrect = answer === current.correctAnswer;
@@ -281,23 +340,20 @@
                 feedback.style.color = '#e74c3c';
                 
                 if (current.isCritical) {
-                    // Critical question - reset everything
+                    // Critical question (last one) - show progress reset
                     progressBar.classList.add('shake');
+                    
                     setTimeout(() => {
+                        updateProgress(false); // Reset progress to 0
                         progressBar.classList.remove('shake');
                     }, 500);
                     
-                    updateProgress(false);
-                    currentQuestion = 0;
-                    
                     setTimeout(() => {
-                        feedback.textContent = "Let's try this again from the beginning! 😅";
-                        setTimeout(() => {
-                            showQuestion();
-                        }, 2000);
-                    }, 1500);
+                        currentQuestion++;
+                        showQuestion(); // This will trigger checkCompletion since we're at the end
+                    }, 2000);
                 } else {
-                    // Wrong answer but not critical - just wait
+                    // Wrong answer but not critical - just move on without progress
                     setTimeout(() => {
                         currentQuestion++;
                         showQuestion();
@@ -306,14 +362,30 @@
             }
         }
 
+        function showFailure() {
+            questionContainer.classList.add('hidden');
+            failure.classList.add('show');
+        }
+
         function showCelebration() {
-            questionContainer.style.display = 'none';
+            questionContainer.classList.add('hidden');
             celebration.classList.add('show');
             
             // Confetti effect
             for (let i = 0; i < 50; i++) {
                 createConfetti();
             }
+        }
+
+        function resetQuiz() {
+            currentQuestion = 0;
+            progress = 0;
+            progressBar.style.width = '0%';
+            progressBar.textContent = '0%';
+            questionContainer.classList.remove('hidden');
+            failure.classList.remove('show');
+            celebration.classList.remove('show');
+            showQuestion();
         }
 
         function createConfetti() {
@@ -343,6 +415,8 @@
 
         yesBtn.addEventListener('click', () => handleAnswer('yes'));
         noBtn.addEventListener('click', () => handleAnswer('no'));
+        retryBtn.addEventListener('click', resetQuiz);
+        giveupBtn.addEventListener('click', showCelebration);
 
         // Start the questionnaire
         showQuestion();
