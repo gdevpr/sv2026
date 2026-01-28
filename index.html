@@ -222,8 +222,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>💕 Valentine's Questionnaire 💕</h1>
-        <p class="subtitle">Answer wisely to become my Valentine! 🌹</p>
+        <h1>💕 Cuestionario de San Valentín 💕</h1>
+        <p class="subtitle">Contesta correctamente para convertirte en mi Valentine! 🌹</p>
         
         <div class="progress-container">
             <div class="progress-bar" id="progressBar">0%</div>
@@ -232,7 +232,7 @@
         <div class="question-container" id="questionContainer">
             <div class="question" id="question"></div>
             <div class="buttons">
-                <button id="yesBtn">Yes! 💖</button>
+                <button id="yesBtn">Sí! 💖</button>
                 <button id="noBtn">No ❌</button>
             </div>
             <div class="feedback" id="feedback"></div>
@@ -240,25 +240,25 @@
 
         <div class="failure" id="failure">
             <div class="sad-emoji">😢</div>
-            <h2 style="color: #e74c3c; margin-bottom: 20px;">Sorry, you can't be my Valentine 💔</h2>
-            <p style="color: #7f8c8d; margin-bottom: 30px;">You didn't pass the test... but you can try again! 😊</p>
+            <h2 style="color: #e74c3c; margin-bottom: 20px;">Sorry, no puedes ser mi Valentine 💔</h2>
+            <p style="color: #7f8c8d; margin-bottom: 30px;">No pasaste el examen... pero puedes intentarlo otra vez! 😊</p>
             <div class="buttons">
-                <button class="retry-btn" id="retryBtn">Try Again 🔄</button>
-                <button class="giveup-btn" id="giveupBtn">Okay I Give Up 😔</button>
+                <button class="retry-btn" id="retryBtn">Intentar nuevamente 🔄</button>
+                <button class="giveup-btn" id="giveupBtn">Busca a otra gatita 😔</button>
             </div>
         </div>
 
         <div class="giveup-screen" id="giveupScreen">
             <div class="sad-emoji">😭💔😭</div>
-            <h2 style="color: #95a5a6; margin-bottom: 20px;">You gave up... 😢</h2>
-            <p style="color: #7f8c8d; margin-bottom: 15px; font-size: 1.2rem;">I guess I won't be your Valentine this year...</p>
-            <p style="color: #95a5a6; font-size: 1rem;">Maybe next time? 💔</p>
+            <h2 style="color: #95a5a6; margin-bottom: 20px;">Al menos lo intentamos... 😢</h2>
+            <p style="color: #7f8c8d; margin-bottom: 15px; font-size: 1.2rem;">Me tocará buscar otras gatitas...😿</p>
+            <p style="color: #95a5a6; font-size: 1rem;">Maybe el proximo año? 💔</p>
         </div>
 
         <div class="celebration" id="celebration">
             <div class="heart">❤️💕💖💗💓💘</div>
-            <h2>You're officially my Valentine! 🎉</h2>
-            <p style="margin-top: 15px; font-size: 1.1rem;">I knew you'd make it! Can't wait to celebrate with you! 😊</p>
+            <h2>Siii! Lo lograste ratona! Eres mi Valentine! 🎉</h2>
+            <p style="margin-top: 15px; font-size: 1.1rem;">Sabía que lo lograrias! No puedo esperar a celebrar contigo! 😏</p>
         </div>
     </div>
 
@@ -277,35 +277,35 @@
 
         const questions = [
             {
-                text: "Do you think I'm annoying? 😏",
+                text: "Si vemos una película, interrumpirás mucho? 🤨",
                 correctAnswer: "no",
-                wrongFeedback: "Wait what?! 😭",
-                correctFeedback: "Phew! Good answer! 😊"
+                wrongFeedback: "Pero cuantas películas más! 😭",
+                correctFeedback: "Muy bien ratona, empezando bien! 😉"
             },
             {
-                text: "Do you enjoy spending time with me? 🥰",
-                correctAnswer: "yes",
-                wrongFeedback: "Ouch... that hurt! 💔",
-                correctFeedback: "Aww, me too! 💕"
-            },
-            {
-                text: "Would you rather be with someone else on Valentine's Day? 💔",
+                text: "Habrán comentarios ofensivos hacia el gordo? 😤",
                 correctAnswer: "no",
-                wrongFeedback: "My heart just broke... 😢",
-                correctFeedback: "That's what I like to hear! 😍"
+                wrongFeedback: "No se ven bien tus probabilidades 😒",
+                correctFeedback: "Debería ser así sin tener que pedírtelo! 🙄"
             },
             {
-                text: "Do you think we make a great team? 💪",
+                text: "Aceptas que soy mejor que tú en las Ratolimpiadas? ☺️",
                 correctAnswer: "yes",
-                wrongFeedback: "Come on, we're awesome together! 😅",
-                correctFeedback: "Absolutely! 🎯"
+                wrongFeedback: "El trofeo que me debes del 2025 dice lo contrario... 🏆",
+                correctFeedback: "Así me gusta 😎"
             },
             {
-                text: "Will you be my Valentine? 💝",
+                text: "Solo me traerás una camisa de Japon? 🧐",
+                correctAnswer: "yes",
+                wrongFeedback: "Solo aceptaré una camisa y le regalaré el resto al gordo 🙅‍♂️",
+                correctFeedback: "Muy bien ratoncita 🤝"
+            },
+            {
+                text: "Estará la estrella abierta? ⭐️",
                 correctAnswer: "yes",
                 isCritical: true,
-                wrongFeedback: "NOOOO! Progress reset to 0%! 😱",
-                correctFeedback: "YES! You did it! 🎊"
+                wrongFeedback: "Nooo! Con ésta bajaste 0%! 😭",
+                correctFeedback: "😏"
             }
         ];
 
